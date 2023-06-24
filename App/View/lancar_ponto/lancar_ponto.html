@@ -1,0 +1,50 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../../public/css/style.css">
+
+<link rel="stylesheet" href="./lancar_ponto.css">
+
+<div>
+
+    <div id="infoPonto">
+        <h2>Obra X</h2>
+        <h2>Nome do colaborador</h2>
+    </div>
+
+    <div class="selecionarData">
+
+        <div class="intervalo-datas">
+            <div>
+                <label for="dataInicial">Selecione a data</label>
+                <input type="date" id="dataInicial">
+            </div>
+            <div>
+                <label for="dataFinal">Data final</label>
+                <input type="date" id="dataFinal" disabled>
+            </div>
+        </div>
+
+        <div class="dias-semana">
+            <button id="segunda">2ª</button>
+            <button id="terca">3ª</button>
+            <button id="quarta">4ª</button>
+            <button id="quinta">5ª</button>
+            <button id="sexta">6ª</button>
+        </div>
+
+        <h3 class="" id="dataSelecionada">xx/xx/xxxx</h3>
+
+    </div>
+
+    <div class="lancarDiaria">
+        <h2>Lançar: matutino e vespertino</h2>
+
+        <div class="circulo">
+            <button class="up active">Matutino</button>
+            <button class="down">Vespertino</button>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module" src="./lancar_ponto.js"></script>

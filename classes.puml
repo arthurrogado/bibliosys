@@ -1,0 +1,18 @@
+@startuml
+
+class Obra {
+    -id: int
+    -nome: string
+    -descricao: string
+
+    +criar()
+}
+
+class Autor {
+    -id: int
+    -nome: string
+}
+
+Autor -- Obra: cria
+
+@enduml

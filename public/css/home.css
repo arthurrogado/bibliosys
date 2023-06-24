@@ -1,0 +1,75 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* MENUS */
+header {
+    background-color: rgb(23, 59, 138);
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+#sidebar {
+    background-color: #f2f2f2;
+    width: 300px;
+    height: calc(100vh - 60px);
+    position: fixed;
+    left: -300px;
+    transition: all .3s ease-in-out;
+}
+#sidebar.active {
+    left: 0;
+    transition: all .3s ease-in-out;
+}
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+#sidebar ul li {
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
+#sidebar ul li:hover {
+    background-color: #173b8a8f;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+/* RESET BUTTONS AND MENUS */
+button, input[type="button"], input[type="submit"], input[type="reset"], select {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: inherit;
+}
+
+
+
+/* BUTTONS */
+.optButton {
+    color: white;
+    padding: 10px;
+    display: block;
+    border-radius: 6px;
+}
+.optPrimary {
+    background-color: rgb(10, 107, 172);
+}
+
+
+#contentData {
+    width: 100%;
+    height: calc(100vh - 100px);
+}

@@ -20,6 +20,10 @@ class Colaborador extends BaseModel {
         parent::__construct();
     }
 
+    public function setId($id) {
+        $this->id = $id;
+    }
+
     // Criar colaborador
     public static function criarColaborador($nome, $cpf, $telefone, $endereco, $diaria, $funcao, $observacoes) {
         $sql = 'INSERT INTO colaboradores (nome, cpf, telefone, endereco, diaria, funcao, observacoes) VALUES (:nome, :cpf, :telefone, :endereco, :diaria, :funcao, :observacoes)';
@@ -80,6 +84,16 @@ class Colaborador extends BaseModel {
         $query->bindValue(':id_colaborador', $id_colaborador);
         $query->bindValue(':id_obra', $id_obra);
         return $query->execute();
+    }
+
+    public function getPonto($id_obra, $data) {
+        $sql = 'SELECT * FROM pontos WHERE id_colaborador = :id_colaborador AND id_obra = :id_obra AND data = :data';
+        $query = self::$conn->prepare($sql);
+        $query->bindValue(':id_colaborador', $this->id);
+        $query->bindValue(':id_obra', $id_obra);
+        $query->bindValue(':data', $data);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_OBJ);
     }
 
 }

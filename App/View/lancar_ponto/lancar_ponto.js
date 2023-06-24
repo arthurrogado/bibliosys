@@ -41,54 +41,16 @@ const atualizarIntervalo = (date) => {
     document.querySelector('#quinta').setAttribute('value', quinta.toISOString().slice(0, 10))
     document.querySelector('#sexta').setAttribute('value', sexta.toISOString().slice(0, 10))
 }
-
-const novoatualizarIntervalo = (date) => {
-    // Pegar a data selecionada
-    const selectedDate = new Date(date);
-    
-    // Pegar o dia da semana (0 - Domingo, 1 - Segunda, ..., 6 - Sábado)
-    const dayOfWeek = selectedDate.getDay();
-    
-    // Calcular o dia inicial (domingo) da semana
-    const domingo = new Date(selectedDate);
-    domingo.setDate(selectedDate.getDate() - dayOfWeek);
-    
-    // Calcular os outros dias da semana
-    const segunda = new Date(domingo);
-    segunda.setDate(domingo.getDate() + 1);
-    
-    const terca = new Date(domingo);
-    terca.setDate(domingo.getDate() + 2);
-    
-    const quarta = new Date(domingo);
-    quarta.setDate(domingo.getDate() + 3);
-    
-    const quinta = new Date(domingo);
-    quinta.setDate(domingo.getDate() + 4);
-    
-    const sexta = new Date(domingo);
-    sexta.setDate(domingo.getDate() + 5);
-    
-    const sabado = new Date(domingo);
-    sabado.setDate(domingo.getDate() + 6);
-    
-    // Atualizar os valores dos campos e botões
-    document.querySelector('#dataInicial').value = domingo.toISOString().slice(0, 10);
-    document.querySelector('#dataFinal').value = sabado.toISOString().slice(0, 10);
-    
-    document.querySelector('#segunda').setAttribute('value', segunda.toISOString().slice(0, 10));
-    document.querySelector('#terca').setAttribute('value', terca.toISOString().slice(0, 10));
-    document.querySelector('#quarta').setAttribute('value', quarta.toISOString().slice(0, 10));
-    document.querySelector('#quinta').setAttribute('value', quinta.toISOString().slice(0, 10));
-    document.querySelector('#sexta').setAttribute('value', sexta.toISOString().slice(0, 10));
-  }
   
 
 
 httpClient.createStyleViews()
 
 // setar data atual no input de dataInicial
-atualizarIntervalo(new Date())
+atualizarIntervalo(new Date(new Date().toISOString().slice(0,10)) )
+    // pega o valor da data de hoje, por exemplo '2023-06-24', e cria um objeto Date
+
+
 
 
 // Toggle botão DIA SEMANA
@@ -103,6 +65,30 @@ document.querySelectorAll('.dias-semana > button').forEach(button => {
         dataSelecionada.setDate(dataSelecionada.getDate() + 1) // ajuste para o dia correto
         dataSelecionada = dataSelecionada.toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric'})
         document.querySelector('#dataSelecionada').innerHTML = dataSelecionada
+
+        // pegar o lançamento da diaria com base na data selecionada
+        console.log(button.value)
+        httpClient.makeRequest({
+            action: 'get_ponto', 
+            id_colaborador: httpClient.getParams().id_colaborador, 
+            id_obra: httpClient.getParams().id_obra, 
+            data: button.value
+        })
+        .then(response => {
+            console.log(response)
+            if(response.ok) {
+                let botaoMatutinoClasslist = document.querySelector('#matutino').classList
+                response.ponto.matutino === 1 ? botaoMatutinoClasslist.add('active') : botaoMatutinoClasslist.remove('active')
+                let botaoVespertinoClasslist = document.querySelector('#vespertino').classList
+                response.ponto.vespertino === 1 ? botaoVespertinoClasslist.add('active') : botaoVespertinoClasslist.remove('active')
+            }
+            else {
+                // limpar pontos matutino e vespertino
+                document.querySelector('#matutino').classList.remove('active')
+                document.querySelector('#vespertino').classList.remove('active')
+            }
+        })
+
     })
 })
 

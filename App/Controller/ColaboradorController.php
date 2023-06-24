@@ -47,6 +47,17 @@ class ColaboradorController {
         }
     }
 
+    public function getPonto($id_colaborador, $id_obra, $data) {
+        $colaborador = new Colaborador();
+        $colaborador->setId($id_colaborador);
+        $response = $colaborador->getPonto($id_obra, $data);
+        if($response) {
+            echo json_encode(["status" => "Ponto listado com sucesso", "ok" => true, "ponto" => $response]);
+        } else {
+            echo json_encode(["status" => "Erro ao listar ponto", "ok" => false]);
+        }
+    }
+
 }
 
 ?>

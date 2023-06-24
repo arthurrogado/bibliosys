@@ -65,6 +65,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ObraController = new ObraController();
             $ObraController->getObra($data->id_obra);
             break;
+
+        //---- PONTO
+        case 'get_ponto':
+            $ColaboradorController = new ColaboradorController();
+            $ColaboradorController->getPonto($data->id_colaborador, $data->id_obra, $data->data);
+            break;
         
         default:
             // launch error 404

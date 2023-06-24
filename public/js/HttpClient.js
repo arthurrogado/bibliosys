@@ -21,7 +21,8 @@ class HttpClient {
     constructor() {
         this.navigateTo = navigateTo
         this.createStyleViews = createStyleViews
-        this.apiUrl = 'http://localhost/pontocivil/api.php'
+        //this.apiUrl = 'http://localhost/pontocivil/api.php'
+        this.apiUrl = 'http://192.168.1.100/pontocivil/api.php'
     }
 
     getParams() {

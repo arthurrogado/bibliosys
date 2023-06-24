@@ -41,17 +41,84 @@ const atualizarIntervalo = (date) => {
     document.querySelector('#quinta').setAttribute('value', quinta.toISOString().slice(0, 10))
     document.querySelector('#sexta').setAttribute('value', sexta.toISOString().slice(0, 10))
 }
-  
+
+// função para pegar o ponto do dia
+const getPonto = (data) => {
+    // pegar o lançamento da diaria com base na data selecionada
+    httpClient.makeRequest({
+        action: 'get_ponto', 
+        id_colaborador: httpClient.getParams().id_colaborador, 
+        id_obra: httpClient.getParams().id_obra, 
+        data: httpClient.dataSelecionada
+    })
+    .then(response => {
+        if(response.ok) {
+            // setar pontos matutino e vespertino
+            let botaoMatutinoClasslist = document.querySelector('#matutino').classList
+            response.ponto.matutino === 1 ? botaoMatutinoClasslist.add('active') : botaoMatutinoClasslist.remove('active')
+            let botaoVespertinoClasslist = document.querySelector('#vespertino').classList
+            response.ponto.vespertino === 1 ? botaoVespertinoClasslist.add('active') : botaoVespertinoClasslist.remove('active')
+        }
+        else {
+            // limpar pontos matutino e vespertino
+            document.querySelector('#matutino').classList.remove('active')
+            document.querySelector('#vespertino').classList.remove('active')
+        }
+    })
+}
+
+// função para salvar o ponto do dia
+const setPonto = (data, matutino, vespertino) => {
+    httpClient.makeRequest({
+        action: 'set_ponto', 
+        id_colaborador: httpClient.getParams().id_colaborador, 
+        id_obra: httpClient.getParams().id_obra, 
+        data: data,
+        matutino: matutino,
+        vespertino: vespertino
+    })
+    .then(response => {
+        if(!response.ok) {
+            alert('Erro ao salvar ponto')
+        }
+    })
+}
 
 
 httpClient.createStyleViews()
 
+
+
+
+///// INICIALIZAÇÃO /////
+
 // setar data atual no input de dataInicial
 atualizarIntervalo(new Date(new Date().toISOString().slice(0,10)) )
-    // pega o valor da data de hoje, por exemplo '2023-06-24', e cria um objeto Date
+////// pega o valor da data de hoje, por exemplo '2023-06-24', e cria um objeto Date
 
 
+// setar nome da obra e nome do colaborador
+httpClient.makeRequest({
+    action: 'get_obra',
+    id_obra: httpClient.getParams().id_obra
+})
+.then(response => {
+    if(response.ok) {
+        document.querySelector('#nomeObra').innerHTML = response.obra.nome
+    }
+})
+httpClient.makeRequest({
+    action: 'get_colaborador',
+    id_colaborador: httpClient.getParams().id_colaborador
+})
+.then(response => {
+    if(response.ok) {
+        document.querySelector('#nomeColaborador').innerHTML = response.colaborador.nome
+    }
+})
 
+
+//// EVENTOS ////
 
 // Toggle botão DIA SEMANA
 document.querySelectorAll('.dias-semana > button').forEach(button => {
@@ -66,28 +133,9 @@ document.querySelectorAll('.dias-semana > button').forEach(button => {
         dataSelecionada = dataSelecionada.toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric'})
         document.querySelector('#dataSelecionada').innerHTML = dataSelecionada
 
-        // pegar o lançamento da diaria com base na data selecionada
-        console.log(button.value)
-        httpClient.makeRequest({
-            action: 'get_ponto', 
-            id_colaborador: httpClient.getParams().id_colaborador, 
-            id_obra: httpClient.getParams().id_obra, 
-            data: button.value
-        })
-        .then(response => {
-            console.log(response)
-            if(response.ok) {
-                let botaoMatutinoClasslist = document.querySelector('#matutino').classList
-                response.ponto.matutino === 1 ? botaoMatutinoClasslist.add('active') : botaoMatutinoClasslist.remove('active')
-                let botaoVespertinoClasslist = document.querySelector('#vespertino').classList
-                response.ponto.vespertino === 1 ? botaoVespertinoClasslist.add('active') : botaoVespertinoClasslist.remove('active')
-            }
-            else {
-                // limpar pontos matutino e vespertino
-                document.querySelector('#matutino').classList.remove('active')
-                document.querySelector('#vespertino').classList.remove('active')
-            }
-        })
+        httpClient.dataSelecionada = button.value
+
+        getPonto(httpClient.dataSelecionada)
 
     })
 })
@@ -96,6 +144,11 @@ document.querySelectorAll('.dias-semana > button').forEach(button => {
 document.querySelectorAll('.circulo > button').forEach(button => {
     button.addEventListener('click', e => {
         button.classList.toggle('active')
+        // setar o ponto
+        let matutino = document.querySelector('#matutino').classList.contains('active') ? 1 : 0
+        let vespertino = document.querySelector('#vespertino').classList.contains('active') ? 1 : 0
+        setPonto(httpClient.dataSelecionada, matutino, vespertino)
+        
     })
 })
 

@@ -51,6 +51,18 @@ class Colaborador extends BaseModel {
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public static function getColaborador($id) {
+        $sql = 'SELECT * FROM colaboradores WHERE id = :id';
+        $query = self::$conn->prepare($sql);
+        $query->bindValue(':id', $id);
+        try {
+            $query->execute();
+            return $query->fetch(PDO::FETCH_OBJ);
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
     public static function vincular($colaborador_id, $obra_id) {
         $sql = 'INSERT INTO colaboradores_obras (colaborador_id, obra_id) VALUES (:colaborador_id, :obra_id)';
         $query = self::$conn->prepare($sql);
@@ -94,6 +106,27 @@ class Colaborador extends BaseModel {
         $query->bindValue(':data', $data);
         $query->execute();
         return $query->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function setPonto($id_obra, $data, $matutino, $vespertino) {
+        // se não existir, inserir, se existir, atualizar
+        $ponto = $this->getPonto($id_obra, $data);
+        if($ponto) {
+            // update
+            $sql = 'UPDATE pontos SET matutino = :matutino, vespertino = :vespertino WHERE id_colaborador = :id_colaborador AND id_obra = :id_obra AND data = :data';
+        }
+        else {
+            // insert
+            $sql = 'INSERT INTO pontos (id_colaborador, id_obra, data, matutino, vespertino) VALUES (:id_colaborador, :id_obra, :data, :matutino, :vespertino)';
+        }
+
+        $query = self::$conn->prepare($sql);
+        $query->bindValue(':matutino', $matutino);
+        $query->bindValue(':vespertino', $vespertino);
+        $query->bindValue(':id_colaborador', $this->id);
+        $query->bindValue(':id_obra', $id_obra);
+        $query->bindValue(':data', $data);
+        return $query->execute();
     }
 
 }

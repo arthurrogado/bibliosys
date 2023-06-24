@@ -7,6 +7,14 @@ document.querySelector('#addColaborador').addEventListener('click', e => {
     document.querySelector('.panel').classList.toggle('open')
 })
 
+// Callback para navegar para tela de lançar ponto
+const cbLancarPonto = (item) => {
+    httpClient.navigateTo('lancar_ponto', {
+        id_colaborador: item.id,
+        id_obra: httpClient.getParams().id
+    })
+}
+
 
 // get nome da obra
 httpClient.makeRequest({action: 'get_obra', id_obra: httpClient.getParams().id})
@@ -26,7 +34,7 @@ httpClient.makeRequest({action: 'get_colaboradores_vinculados', id_obra: httpCli
     console.log(response)
     if(response.ok) {
         let colaboradores = response.colaboradores
-        httpClient.createListData(colaboradores, null, '#vinculados', ['id', 'nome'], true)
+        httpClient.createListData(colaboradores, cbLancarPonto, '#vinculados', ['id', 'nome'], true)
     }
 })
 

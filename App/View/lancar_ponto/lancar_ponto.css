@@ -1,3 +1,16 @@
+#infoPonto {
+    width: 90%;
+    border-radius: 2rem;
+    box-shadow: 0px 10px 10px #ccc;
+    background-color: #f1f1f1;
+    padding: 20px;
+    margin: 20px auto;
+}
+#infoPonto > h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 
 .selecionarData {
     width: 100%;

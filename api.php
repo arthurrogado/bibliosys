@@ -35,6 +35,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ObraController->listarObras();
             break;
 
+        //---- COLABORADORES
+
+        case 'get_colaborador':
+            $ColaboradorController = new ColaboradorController();
+            $ColaboradorController->getColaborador($data->id_colaborador);
+            break;
+
         case 'criar_colaborador':
             $ColaboradorController = new ColaboradorController();
             $ColaboradorController->criarColaborador($data->nome, $data->cpf, $data->telefone, $data->endereco, $data->diaria, $data->funcao, $data->observacoes);
@@ -70,6 +77,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 'get_ponto':
             $ColaboradorController = new ColaboradorController();
             $ColaboradorController->getPonto($data->id_colaborador, $data->id_obra, $data->data);
+            break;
+        case 'set_ponto':
+            $ColaboradorController = new ColaboradorController();
+            $ColaboradorController->setPonto($data->id_colaborador, $data->id_obra, $data->data, $data->matutino, $data->vespertino);
             break;
         
         default:

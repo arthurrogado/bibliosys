@@ -26,6 +26,16 @@ class ColaboradorController {
         }
     }
 
+    public function getColaborador($id_colaborador) {
+        $colaborador = new Colaborador();
+        $response = $colaborador::getColaborador($id_colaborador);
+        if($response) {
+            echo json_encode(["status" => "Colaborador listado com sucesso", "ok" => true, "colaborador" => $response]);
+        } else {
+            echo json_encode(["status" => "Erro ao listar colaborador", "ok" => false]);
+        }
+    }
+
     // Pega os colaboradores que não estão linkados a uma determinada obra
     public function getColaboradoresNaoLinkados($id_obra) {
         $colaborador = new Colaborador();
@@ -55,6 +65,17 @@ class ColaboradorController {
             echo json_encode(["status" => "Ponto listado com sucesso", "ok" => true, "ponto" => $response]);
         } else {
             echo json_encode(["status" => "Erro ao listar ponto", "ok" => false]);
+        }
+    }
+
+    public function setPonto($id_colaborador, $id_obra, $data, $matutino, $vespertino) {
+        $colaborador = new Colaborador();
+        $colaborador->setId($id_colaborador);
+        $response = $colaborador->setPonto($id_obra, $data, $matutino, $vespertino);
+        if($response) {
+            echo json_encode(["status" => "Ponto registrado com sucesso", "ok" => true]);
+        } else {
+            echo json_encode(["status" => "Erro ao registrar ponto", "ok" => false]);
         }
     }
 

@@ -80,6 +80,10 @@ const setPonto = (data, matutino, vespertino) => {
     .then(response => {
         if(!response.ok) {
             alert('Erro ao salvar ponto')
+            alert(response.message? response.message : 'Erro desconhecido')
+            console.log(response)
+            // limpar o ponto lançado que deu erro
+            
         }
     })
 }
@@ -163,3 +167,8 @@ document.querySelector('#dataInicial').addEventListener('change', e => {
     document.querySelector('#dataSelecionada').innerHTML = '__ de __ de ____'
 })
 
+// Tornar botão de valor editável
+document.querySelector('#editarValor').addEventListener('click', e => {
+    document.querySelector('#valorDiaria').removeAttribute('disabled')
+    document.querySelector('#valorDiaria').focus()
+})

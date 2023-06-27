@@ -1,6 +1,6 @@
 <?php
     try {
-        $conn = new PDO('mysql: host=localhost; dbname=pontocivil', 'root', '');
+        $conn = new PDO('mysql: host=localhost; dbname=bibliosys', 'root', '');
     } catch (Exception $e) {
         echo $e->getMessage();
         echo "<br>";

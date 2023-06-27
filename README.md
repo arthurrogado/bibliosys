@@ -1,3 +1,3 @@
-# PontoCivil
+# BiblioSys
 
-Se trata de um software que faz o controle da presença de colaboradores em obras de construção civil.
+Sistema base para biblioteca

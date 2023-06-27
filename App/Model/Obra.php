@@ -39,20 +39,12 @@ class Obra extends BaseModel {
         return $query->execute();
     }
 
-    // Listar obras
-    public static function listarObras() {
+    public static function getObras() {
         $sql = 'SELECT * FROM obras';
         $query = self::$conn->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function getColaboradores() {
-        $sql = 'SELECT * FROM colaboradores WHERE id IN (SELECT id_colaborador FROM colaboradores_obras WHERE id_obra = :id_obra)';
-        $query = self::$conn->prepare($sql);
-        $query->bindValue(':id_obra', $this->id);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_OBJ);
-    }
 
 }

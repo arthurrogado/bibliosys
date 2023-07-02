@@ -122,11 +122,9 @@ iframe {
 }
 
 .input-field input:disabled ~ label,
-.input-field input:valid ~ label,
 .input-field input:focus ~ label,
 .input-field textarea:valid ~ label,
 .input-field textarea:focus ~ label,
-.input-field select:valid ~ label,
 .input-field select:focus ~ label {
     bottom: 50px;
     font-size: 0.9em;
@@ -135,6 +133,24 @@ iframe {
     opacity: 1;
 }
 
+.input-field.focused > label {
+    bottom: 50px;
+    font-size: 0.9em;
+    color: blue;
+    transform: translateY(-25px);
+    opacity: 1;
+}
+
+/* .input-field.error > label {
+    color: red;
+    font-size: 0.9em;
+    transform: translateY(-25px);
+    opacity: 1;
+    transition: .3s;
+}
+.input-field.error input, .input-field .error textarea {
+    border: 1px solid red;
+} */
 
 
 

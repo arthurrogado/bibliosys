@@ -23,6 +23,18 @@ class HttpClient {
         this.createStyleViews = createStyleViews
         this.apiUrl = 'http://localhost/bibliosys/api.php'
         //this.apiUrl = 'http://192.168.1.100/bibliosys/api.php'
+
+        // aplica o focused nos campos preenchidos, não precisando do :valid no css
+        document.querySelectorAll('.input-field input').forEach(input => {
+            input.addEventListener('change', e => {
+                if(e.target.value != '') {
+                    e.target.parentNode.classList.add('focused')
+                } else {
+                    e.target.parentNode.classList.remove('focused')
+                }
+            })
+        })
+    
     }
 
     getParams() {
@@ -50,9 +62,20 @@ class HttpClient {
         })
         .then(response => response.json())
         .then(data => {
+            if(data.message) {alert(data.message)}
             return data
         })
     }
+
+    // Função para agregar chave valor ao formdata
+    mergeObjectToFormData(object, formdata) {
+        formdata.forEach((value, key) => {
+            object[key] = value
+        })
+        return object
+    }
+
+
 
     // ESTRUTURAS PRONTAS HTML
 
@@ -61,10 +84,10 @@ class HttpClient {
         // verificar se está no toplevel ou não a execução do script
         if (window.top === window.self) {
             
-            // se tiver .html no nome, usar alert()
+            /* // se tiver .html no nome, usar alert()
             if(window.location.href.includes('.html')) {
                 alert(message)
-            }
+            } */
 
             // está no toplevel
             let messageBox = document.createElement('div')
@@ -90,7 +113,9 @@ class HttpClient {
             // está dentro de um iframe
             let messagePost = {
                 action: 'messageBox',
-                message: message
+                message: message,
+                type: type,
+                time: time
             }
             window.parent.postMessage(messagePost, '*')
         }
@@ -147,6 +172,26 @@ class HttpClient {
             'text-align': 'center'
         }
         document.querySelector(parent).appendChild(titleElement)
+    }
+
+
+    // FUNÇÕES PRONTAS PARA USO
+    
+    // Verificar os input-fields com * e retornar false se algum estiver vazio
+    verifyObrigatoryFields() {
+        let result = true
+        document.querySelectorAll('.input-field label')
+        .forEach(label => {
+            if(label.innerHTML.includes('*')) {
+                let ehVazio = label.parentElement.querySelector('input').value == ''
+                if(ehVazio) {
+                    label.parentNode.classList.add('error')
+                    result = false
+                }
+            }
+        })
+        console.log('passou')
+        return result
     }
 
 }

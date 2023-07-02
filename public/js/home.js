@@ -29,13 +29,13 @@ document.querySelector('#sidebarButton').addEventListener('click', e => {
 
 
 // check the url typed by the user and load the page
-if(location.pathname.startsWith('/pontocivil')){
+if(location.pathname.startsWith('/bibliosys')){
     let routeAndParams = location.hash
     let [route, params] = routeAndParams.split('?')
 
-    console.log('====== STRING PARAMS')
-    console.log(params)
-
+    if(!params) {
+        params = ''
+    }
     
     route == '' ? route = '#home' : null // if the route is '/', change to 'home'
     route.startsWith('#') ? route = route.slice(1) : null // remove the first '#'
@@ -46,9 +46,6 @@ if(location.pathname.startsWith('/pontocivil')){
     
     params = '?' + params
 
-    console.log('=-=-=-=-= params')
-    console.log(params)
-    
     navigateTo(route, params)
 
 }
@@ -68,7 +65,7 @@ window.addEventListener('message', e => {
 
         case 'messageBox':
             let messageText = e.data.message
-            httpClient.messageBox(messageText)
+            httpClient.messageBox(messageText, e.data.type, e.data.time)
             break;
     
         default:

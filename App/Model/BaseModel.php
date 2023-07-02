@@ -6,7 +6,7 @@ class BaseModel {
 
     public function __construct() {
         if(!isset(self::$conn)) {
-            self::$conn = new PDO('mysql: host=localhost; dbname=pontocivil', 'root', '');
+            self::$conn = new PDO('mysql: host=localhost; dbname=bibliosys', 'root', '');
         }
     }
 }

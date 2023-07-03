@@ -1,0 +1,79 @@
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+
+<body>
+    <h1>Leitor</h1>
+
+
+    <form class="form">
+
+        <input type="text" name="id" style="display: none;" disabled>
+
+        <div class="input-field focused">
+            <input type="text" name="nome" disabled>
+            <label>Nome:*</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="cpf" disabled>
+            <label>CPF:</label>
+        </div>
+
+        <!-- inputs para endereco, cidade, estado, telefone, email, cpf, categoria, data de nascimento -->
+
+        <div class="input-field focused">
+            <input type="text" name="endereco" required disabled>
+            <label>Endereço:</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="cidade" required disabled>
+            <label>Cidade:</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="estado" required disabled>
+            <label>Estado:</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="telefone" required disabled>
+            <label>Telefone:</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="email" required disabled>
+            <label>Email:</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="categoria" required disabled>
+            <label>Categoria:</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="data_nascimento" required disabled>
+            <label>Data de Nascimento:</label>
+        </div>
+
+        <!-- <button class="btn btn-primary" type="button" id="editarLeitor">Editar</button> -->
+
+
+    </form>
+
+    <div class="botoesEdicao">
+        <!-- <button id="editButton" class="btn btn-primary circleButton">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>Editar</span>
+        </button> -->
+        <!-- <button id="deleteButton" class="btn btn-danger circleButton">
+            <i class="fa-solid fa-trash"></i>
+            <span>Excluir</span>
+        </button> -->
+    </div>
+
+</body>
+
+<script type="module" src="./visualizar_leitor.js"></script>

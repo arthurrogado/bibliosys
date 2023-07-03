@@ -10,6 +10,7 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 //use App\Controller\AuthController;
 require_once './App/Controller/AuthController.php';
 require_once './App/Controller/LeitorController.php';
+require_once './App/Controller/CategoriaLeitorController.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,6 +43,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $leitorController = new LeitorController();
                 $leitorController->cadastrarLeitor($data->nome, $data->endereco, $data->telefone, $data->email, $data->cpf, $data->categoria, $data->data_nascimento);
                 break;
+
+            case 'getLeitor':
+                $leitorController = new LeitorController();
+                $leitorController->getLeitor($data->id);
+                break;
+            
+            case 'editarLeitor':
+                $leitorController = new LeitorController();
+                $leitorController->editarLeitor(
+                    $data->id,
+                    $data->nome, 
+                    $data->cpf, 
+                    $data->endereco, 
+                    $data->cidade, 
+                    $data->estado, 
+                    $data->telefone, 
+                    $data->email, 
+                    $data->categoria, 
+                    $data->data_nascimento
+                );
+                break;
+            
+            case 'deletarLeitor':
+                $leitorController = new LeitorController();
+                $leitorController->deletarLeitor($data->id);
+                break;
+
+            // CATEGORIAS de Leitor
+            
+            case 'listarCategoriasLeitor':
+                $categoriaLeitorController = new CategoriaLeitorController();
+                $categoriaLeitorController->getAll();
+                break;
+            
+            case 'getCategoriaLeitor':
+                $categoriaLeitorController = new CategoriaLeitorController();
+                $categoriaLeitorController->getCategoriaLeitor($data->id);
+                break;
+            
+            case 'createCategoriaLeitor':
+                $categoriaLeitorController = new CategoriaLeitorController();
+                $categoriaLeitorController->createCategoriaLeitor($data->nome, $data->dias_emprestimo);
+                break;
+            
+            case 'editarCategoriaLeitor':
+                $categoriaLeitorController = new CategoriaLeitorController();
+                $categoriaLeitorController->updateCategoriaLeitor($data->id, $data->nome, $data->dias_emprestimo);
+                break;
+            
+            case 'deletarCategoriaLeitor':
+                $categoriaLeitorController = new CategoriaLeitorController();
+                $categoriaLeitorController->deleteCategoriaLeitor($data->id);
+                break;
+
+
 
             default:
                 // launch error 404

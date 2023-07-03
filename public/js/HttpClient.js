@@ -62,7 +62,7 @@ class HttpClient {
         })
         .then(response => response.json())
         .then(data => {
-            if(data.message) {alert(data.message)}
+            if(data.message) {console.log(data)}
             return data
         })
     }
@@ -105,7 +105,7 @@ class HttpClient {
             })
             // timer para fechar a mensagem
             setTimeout(() => {
-                document.querySelector('.message-box').remove()
+                document.querySelector('.message-box')?.remove()
             }, time) // From time provided by the user
 
         }
@@ -174,6 +174,92 @@ class HttpClient {
         document.querySelector(parent).appendChild(titleElement)
     }
 
+    createEditButton(editAction, onOkNavigateTo, params = {}, parent = 'body') {
+        let editButton = document.createElement('button')
+        editButton.innerHTML += '<i class="fas fa-edit"></i>'
+        editButton.innerHTML += '<span>Editar</span>'
+        
+        editButton.classList.add('circleButton')
+        editButton.classList.add('btn')
+        editButton.classList.add('btn-primary')
+
+        editButton.addEventListener('click', e => {
+            editButton.classList.remove('circleButton')
+
+            // reativar os inputs
+            let inputs = document.querySelectorAll('.form input')
+            inputs.forEach(input => {
+                input.removeAttribute('disabled')
+            })
+
+            // remover o evento para editar
+            editButton.removeEventListener('click', (e) => {
+                editButton.classList.remove('circleButton')
+                e.target.innerHTML += ' Editar'
+            })
+
+            // FUNÇÃO PARA EDITAR
+            editButton.addEventListener('click', (e) => {
+                let data = {action: editAction}
+                data = this.mergeObjectToFormData(data, new FormData(document.querySelector('.form')))
+                
+                this.makeRequest(data)
+                .then(response => {
+                    console.log(response)
+                    if(response.ok) {
+                        this.messageBox('Editado com sucesso!', 'success', 3000)
+                        this.navigateTo(onOkNavigateTo, params)
+                    } else {
+                        this.messageBox('Erro ao editar: ' + response?.message, 'error', 3000)
+                    }
+                })
+
+            })
+        })
+
+
+        document.querySelector(parent).appendChild(editButton)
+
+    }
+
+    createDeleteButton(deleteAction, onOkNavigateTo, params, parent = 'body') {
+        let deleteButton = document.createElement('button')
+        deleteButton.innerHTML += '<i class="fas fa-trash"></i>'
+        deleteButton.innerHTML += '<span>Certeza que deseja excluir?</span>'
+        
+        deleteButton.classList.add('circleButton')
+        deleteButton.classList.add('btn')
+        deleteButton.classList.add('btn-danger')
+
+        deleteButton.addEventListener('click', e => {
+            deleteButton.classList.remove('circleButton')
+
+            // remover o evento para deletar
+            deleteButton.removeEventListener('click', (e) => {
+                deleteButton.classList.remove('circleButton')
+                e.target.innerHTML += ' Excluir'
+            })
+
+            // FUNÇÃO PARA DELETAR
+            deleteButton.addEventListener('click', (e) => {
+                let data = {action: deleteAction, id: this.getParams().id}
+                
+                this.makeRequest(data)
+                .then(response => {
+                    console.log(response)
+                    if(response.ok) {
+                        this.messageBox('Excluído com sucesso!', 'success', 3000)
+                        this.navigateTo(onOkNavigateTo, params)
+                    } else {
+                        this.messageBox('Erro ao excluir: ' + response?.message, 'error', 3000)
+                    }
+                })
+
+            })
+        })
+
+        document.querySelector(parent).appendChild(deleteButton)
+    }
 
     // FUNÇÕES PRONTAS PARA USO
     
@@ -192,6 +278,12 @@ class HttpClient {
         })
         console.log('passou')
         return result
+    }
+
+    focusAllInputFields() {
+        document.querySelectorAll('.input-field').forEach(inputField => {
+            inputField.classList.add('focused')
+        })
     }
 
 }

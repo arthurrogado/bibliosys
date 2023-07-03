@@ -315,12 +315,33 @@ iframe {
 }
 
 
+.circleButton {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    transition: .3s;
+    align-items: center;
+    justify-content: center;
+}
+.circleButton > span {
+    display: none;
+}
 
 
 
-
-
-
+.botoesEdicao {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin: 10px auto;
+    padding: 0 10px;
+}
 
 
 

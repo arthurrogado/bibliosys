@@ -10,6 +10,17 @@ class LeitorController {
         
     }
 
+    public function getLeitor($id) {
+        $leitor = new Leitor();
+        $dadosLeitor = $leitor::getLeitor($id);
+        if ($dadosLeitor) {
+            echo json_encode(["status" => "OK", "leitor" => $dadosLeitor, "ok" => true]);
+        } else {
+            echo json_encode(["status" => "Not Found", "message" => "Nenhum leitor encontrado", "ok" => false]);
+        }
+        
+    }
+
     public function listarLeitores() {
         $leitor = new Leitor();
         $leitores = $leitor::getAll();
@@ -32,16 +43,17 @@ class LeitorController {
 
     public function buscarLeitor($id) {
         $leitor = Leitor::getLeitor($id);
-        if ($leitor) {
+        if($leitor) {
             echo json_encode(["status" => "OK", "data" => $leitor, "ok" => true]);
         } else {
             echo json_encode(["status" => "Not Found", "message" => "Nenhum leitor encontrado", "ok" => false]);
         }
     }
 
-    public function editarLeitor($id, $nome, $endereco, $telefone, $email, $cpf, $categoria, $data_nascimento) {
-        $leitor = Leitor::updateLeitor($id, $nome, $endereco, $telefone, $email, $cpf, $categoria, $data_nascimento);
-        if ($leitor) {
+    public function editarLeitor($id, $nome, $cpf, $endereco, $cidade, $estado, $telefone, $email, $categoria, $data_nascimento) {
+        $leitor = new Leitor();
+        $leitor = Leitor::updateLeitor($id, $nome, $cpf, $endereco, $cidade, $estado, $telefone, $email, $categoria, $data_nascimento);
+        if($leitor) {
             echo json_encode(["status" => "OK", "data" => $leitor, "ok" => true]);
         } else {
             echo json_encode(["status" => "Not Found", "message" => "Nenhum leitor encontrado", "ok" => false]);
@@ -49,7 +61,8 @@ class LeitorController {
     }
 
     public function deletarLeitor($id) {
-        $leitor = Leitor::deleteLeitor($id);
+        $leitor = new Leitor();
+        $leitor = Leitor::deletarLeitor($id);
         if ($leitor) {
             echo json_encode(["status" => "OK", "data" => $leitor, "ok" => true]);
         } else {

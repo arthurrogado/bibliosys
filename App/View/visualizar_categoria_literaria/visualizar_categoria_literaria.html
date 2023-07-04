@@ -1,0 +1,32 @@
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+
+<body>
+    <h1>Visualizar Categoria Literária</h1>
+    
+    <form class="form">
+        <input type="text" name="id" style="display: none;">
+
+        <div class="input-field">
+            <input type="text" name="nome" disabled>
+            <label>Nome da categoria:*</label>
+        </div>
+
+        <div class="input-field">
+            <input type="number" name="dias_emprestimo" disabled>
+            <label>Quantidade máxima de dias empréstimo</label>
+        </div>
+
+        <div class="input-field">
+            <input type="number" name="multa_diaria" disabled>
+            <label>Valor da multa por dia de atraso R$</label>
+        </div>
+    </form>
+
+    <div class="botoesEdicao"></div>
+
+</body>
+
+<script type="module" src="./visualizar_categoria_literaria.js"></script>

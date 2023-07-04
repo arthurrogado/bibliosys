@@ -1,5 +1,8 @@
 <?php
 
+// api.php
+
+
 error_reporting(0);
 
 // Definir manipulador de erros personalizado
@@ -8,12 +11,18 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 });
 
 //use App\Controller\AuthController;
-require_once './App/Controller/AuthController.php';
-require_once './App/Controller/LeitorController.php';
-require_once './App/Controller/CategoriaLeitorController.php';
+try {
+    require_once './App/Controller/AuthController.php';
+    require_once './App/Controller/LeitorController.php';
+    require_once './App/Controller/CategoriaLeitorController.php';
+    require_once './App/Controller/CategoriaLiterariaController.php';
+} catch (\Throwable $th) {
+    echo json_encode( array('error' => $th->getMessage()) );
+}
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if(isset($_POST['data'])) {
     try {
         $data = json_decode(filter_input(INPUT_POST, 'data'));
         
@@ -96,7 +105,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $categoriaLeitorController = new CategoriaLeitorController();
                 $categoriaLeitorController->deleteCategoriaLeitor($data->id);
                 break;
+            
+            // Categorias LITERARIAS
 
+            case 'listarCategoriasLiterarias':
+                $categoriaLiterariaController = new CategoriaLiterariaController();
+                $categoriaLiterariaController->getAll();
+                break;
+            
+            case 'getCategoriaLiteraria':
+                $categoriaLiterariaController = new CategoriaLiterariaController();
+                $categoriaLiterariaController->getCategoriaLiteraria($data->id);
+                break;
+
+            case 'createCategoriaLiteraria':
+                $categoriaLiterariaController = new CategoriaLiterariaController();
+                $categoriaLiterariaController->createCategoriaLiteraria($data->nome, $data->dias_emprestimo, $data->multa_diaria);
+                break;
+
+            case 'editarCategoriaLiteraria':
+                $categoriaLiterariaController = new CategoriaLiterariaController();
+                $categoriaLiterariaController->updateCategoriaLiteraria($data->id, $data->nome, $data->dias_emprestimo, $data->multa_diaria);
+                break;
+
+            case 'deletarCategoriaLiteraria':
+                $categoriaLiterariaController = new CategoriaLiterariaController();
+                $categoriaLiterariaController->deleteCategoriaLiteraria($data->id);
+                break;
+                
 
 
             default:

@@ -31,11 +31,21 @@ class Obra extends BaseModel {
     }
 
     // Criar obra
-    public static function criarObra($nome, $descricao) {
-        $sql = 'INSERT INTO obras (nome, descricao) VALUES (:nome, :descricao)';
+    public static function criarObra($titulo, $isbn, $id_categoria_literaria, $autores, $palavras_chave, $data_publicacao, $edicao, $editora, $paginas) {
+        $sql = 'INSERT INTO obras (titulo, isbn, id_categoria_literaria, autores, palavras_chave, data_publicacao, edicao, editora, paginas) VALUES (:titulo, :isbn, :id_categoria_literaria, :autores, :palavras_chave, :data_publicacao, :edicao, :editora, :paginas)';
         $query = self::$conn->prepare($sql);
-        $query->bindValue(':nome', $nome);
-        $query->bindValue(':descricao', $descricao);
+        $query->bindValue(':titulo', $titulo);
+        $query->bindValue(':isbn', $isbn);
+        // se id_categoria_literaria for vazio, atribui null
+        $id_categoria_literaria = $id_categoria_literaria == '' ? null : $id_categoria_literaria;
+        $query->bindValue(':id_categoria_literaria', $id_categoria_literaria);
+        
+        $query->bindValue(':autores', $autores);
+        $query->bindValue(':palavras_chave', $palavras_chave);
+        $query->bindValue(':data_publicacao', $data_publicacao);
+        $query->bindValue(':edicao', $edicao);
+        $query->bindValue(':editora', $editora);
+        $query->bindValue(':paginas', $paginas);
         return $query->execute();
     }
 
@@ -44,6 +54,32 @@ class Obra extends BaseModel {
         $query = self::$conn->prepare($sql);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public static function updateObra($id, $titulo, $isbn, $id_categoria_literaria, $autores, $palavras_chave, $data_publicacao, $edicao, $editora, $paginas) {
+        $sql = 'UPDATE obras SET titulo = :titulo, isbn = :isbn, id_categoria_literaria = :id_categoria_literaria, autores = :autores, palavras_chave = :palavras_chave, data_publicacao = :data_publicacao, edicao = :edicao, editora = :editora, paginas = :paginas WHERE id = :id';
+        $query = self::$conn->prepare($sql);
+        $query->bindValue(':id', $id);
+        $query->bindValue(':titulo', $titulo);
+        $query->bindValue(':isbn', $isbn);
+        // se id_categoria_literaria for vazio, atribui null
+        $id_categoria_literaria = $id_categoria_literaria == '' ? null : $id_categoria_literaria;
+        $query->bindValue(':id_categoria_literaria', $id_categoria_literaria);
+        
+        $query->bindValue(':autores', $autores);
+        $query->bindValue(':palavras_chave', $palavras_chave);
+        $query->bindValue(':data_publicacao', $data_publicacao);
+        $query->bindValue(':edicao', $edicao);
+        $query->bindValue(':editora', $editora);
+        $query->bindValue(':paginas', $paginas);
+        return $query->execute();
+    }
+
+    public static function deleteObra($id) {
+        $sql = 'DELETE FROM obras WHERE id = :id';
+        $query = self::$conn->prepare($sql);
+        $query->bindValue(':id', $id);
+        return $query->execute();
     }
 
 

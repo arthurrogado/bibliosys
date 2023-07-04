@@ -187,7 +187,7 @@ class HttpClient {
             editButton.classList.remove('circleButton')
 
             // reativar os inputs
-            let inputs = document.querySelectorAll('.form input')
+            let inputs = document.querySelectorAll('.form input, .form select')
             inputs.forEach(input => {
                 input.removeAttribute('disabled')
             })
@@ -202,10 +202,15 @@ class HttpClient {
             editButton.addEventListener('click', (e) => {
                 let data = {action: editAction}
                 data = this.mergeObjectToFormData(data, new FormData(document.querySelector('.form')))
-                
+                console.log(data)
+
+                let selects = document.querySelectorAll('.form select')
+                selects.forEach(select => {
+                    data[select.name] = select.value
+                })
+
                 this.makeRequest(data)
                 .then(response => {
-                    console.log(response)
                     if(response.ok) {
                         this.messageBox('Editado com sucesso!', 'success', 3000)
                         this.navigateTo(onOkNavigateTo, params)

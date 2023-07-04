@@ -24,3 +24,29 @@ document.querySelector('.form').addEventListener('submit', e => {
         }
     })
 })
+
+document.querySelector('#criarObra').addEventListener('click', () => {
+    // Require obrigatory fields
+    if(!httpClient.verifyObrigatoryFields()) {
+        httpClient.messageBox('Preencha todos os campos obrigatórios!', 'error', 3000)
+        return
+    }
+
+    let fd = new FormData(document.querySelector('.form'))
+    let data = {action: 'criarObra'}
+    httpClient.mergeObjectToFormData(data, fd)
+
+    if(data.categoria_literaria == '') {
+        data.categoria_literaria = null
+    }
+
+    httpClient.makeRequest(data)
+    .then(response => {
+        if(response.ok) {
+            httpClient.messageBox('Obra cadastrada com sucesso!', 'success', 3000)
+            httpClient.navigateTo('obras')
+        } else {
+            httpClient.messageBox('Erro ao cadastrar obra: ' + response?.message, 'error', 3000)
+        }
+    })
+})

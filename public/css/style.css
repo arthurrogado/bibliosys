@@ -123,9 +123,11 @@ iframe {
 
 .input-field input:disabled ~ label,
 .input-field input:focus ~ label,
+.input-field input:valid ~ label,
 .input-field textarea:valid ~ label,
 .input-field textarea:focus ~ label,
-.input-field select:focus ~ label {
+.input-field select:focus ~ label,
+.input-field select:valid ~ label {
     bottom: 50px;
     font-size: 0.9em;
     color: blue;

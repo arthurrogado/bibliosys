@@ -2,61 +2,22 @@ import HttpClient from "../../../public/js/HttpClient.js";
 
 const httpClient = new HttpClient()
 
-// menu open
-document.querySelector('#addColaborador').addEventListener('click', e => {
-    document.querySelector('.panel').classList.toggle('open')
-})
-
-// Callback para navegar para tela de lançar ponto
-const cbLancarPonto = (item) => {
-    httpClient.navigateTo('lancar_ponto', {
-        id_colaborador: item.id,
-        id_obra: httpClient.getParams().id
-    })
-}
+httpClient.createStyleViews()
+httpClient.focusAllInputFields()
 
 
-// get nome da obra
-httpClient.makeRequest({action: 'get_obra', id_obra: httpClient.getParams().id})
+// preencher os campos do formulário baseado no id
+httpClient.makeRequest({action: 'getObra', id: httpClient.getParams().id})
 .then(response => {
-    console.log(response)
-    console.log(document.querySelector('#title'))
-    if(response.ok) {
-        //httpClient.createTitle(response.obra.nome, 'title')
-        document.querySelector('h1').innerHTML = response.obra.nome
-    }
-})
-
-
-// VINCULADOS
-httpClient.makeRequest({action: 'get_colaboradores_vinculados', id_obra: httpClient.getParams().id})
-.then(response => {
-    console.log(response)
-    if(response.ok) {
-        let colaboradores = response.colaboradores
-        httpClient.createListData(colaboradores, cbLancarPonto, '#vinculados', ['id', 'nome'], true)
-    }
-})
-
-
-// Callback para vincular colaborador
-const cbVincularColaborador = (item) => {
-    httpClient.makeRequest({action: 'vincular_colaborador_a_obra', id_obra: httpClient.getParams().id, id_colaborador: item.id})
-    .then(response => {
-        console.log(response)
-        if(response.ok) {
-            location.reload()
+    let obra = response.obra
+    // iterar o objeto e preencher os campos
+    for(let key in obra) {
+        let input = document.getElementsByName(key)[0]
+        if(input) {
+            input.value = obra[key]
         }
-    })
-}
-
-
-// Get colaboradores não linkados com a obra
-httpClient.makeRequest({action: 'get_colaboradores_nao_linkados', id_obra: httpClient.getParams().id})
-.then(response => {
-    console.log(response)
-    if(response.ok) {
-        let colaboradores = response.colaboradores
-        httpClient.createListData(colaboradores, cbVincularColaborador, '#nao_vinculados', ['id', 'nome'], true)
     }
 })
+
+httpClient.createEditButton('updateObra', 'visualizar_obra', {id: httpClient.getParams().id}, '.botoesEdicao')
+httpClient.createDeleteButton('deleteObra', 'obras', {}, '.botoesEdicao')

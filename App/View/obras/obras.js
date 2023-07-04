@@ -10,12 +10,12 @@ function navigateToObra(item) {
 }
 
 // LISTAR OBRAS
-httpClient.makeRequest({action: 'listar_obras'})
+httpClient.makeRequest({action: 'getObras'})
 .then(response => {
     console.log(response)
     if(response.ok) {
         let obras = response.obras
-        httpClient.createListData(obras, navigateToObra, 'body', ['id', 'nome'])
+        httpClient.createListData(obras, navigateToObra, 'body', ['id', 'titulo'])
     }
 })
 

@@ -16,6 +16,7 @@ try {
     require_once './App/Controller/LeitorController.php';
     require_once './App/Controller/CategoriaLeitorController.php';
     require_once './App/Controller/CategoriaLiterariaController.php';
+    require_once './App/Controller/ObraController.php';
 } catch (\Throwable $th) {
     echo json_encode( array('error' => $th->getMessage()) );
 }
@@ -133,6 +134,54 @@ if(isset($_POST['data'])) {
                 $categoriaLiterariaController->deleteCategoriaLiteraria($data->id);
                 break;
                 
+            // OBRAS LITERARIAS
+
+            case 'criarObra':
+                $obraController = new ObraController();
+                // $titulo, $isbn, $id_categoria_literaria, $autores, $palavras_chave, $data_publicacao, $edicao, $editora, $paginas
+                $obraController->createObra(
+                    $data->titulo, 
+                    $data->isbn, 
+                    $data->id_categoria_literaria, 
+                    $data->autores, 
+                    $data->palavras_chave, 
+                    $data->data_publicacao, 
+                    $data->edicao, 
+                    $data->editora, 
+                    $data->paginas
+                );
+                break;
+
+            case 'getObras':
+                $obraController = new ObraController();
+                $obraController->getObras();
+                break;
+
+            case 'getObra':
+                $obraController = new ObraController();
+                $obraController->getObra($data->id);
+                break;
+
+            case 'updateObra':
+                $obraController = new ObraController();
+                $obraController->updateObra(
+                    $data->id,
+                    $data->titulo, 
+                    $data->isbn, 
+                    $data->id_categoria_literaria, 
+                    $data->autores, 
+                    $data->palavras_chave, 
+                    $data->data_publicacao, 
+                    $data->edicao, 
+                    $data->editora, 
+                    $data->paginas
+                );
+                break;
+
+            case 'deleteObra':
+                $obraController = new ObraController();
+                $obraController->deleteObra($data->id);
+                break;
 
 
             default:

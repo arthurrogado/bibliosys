@@ -7,9 +7,61 @@
 <div id="vinculados"></div>
 
 
-<div id="vincularColaborador" style="margin-top: 50px;">
-    <button id="addColaborador" class="btn btn-primary">Adicionar</button>
-    <div id="nao_vinculados" class="panel"></div>
-</div>
+<form class="form">
+
+    <!-- Atributos: titulo, isbn, id_categoria_literaria, autores, palavras_chave, data_publicacao, edicao, editora, paginas -->
+
+    <input type="text" name="id" style="display: none;" disabled>
+
+    <div class="input-field">
+        <input type="text" id="nome" name="titulo" required disabled>
+        <label for="nome">Título da obra*</label>
+    </div>
+
+    <div class="input-field">
+        <input type="text" id="isbn" name="isbn" required disabled>
+        <label for="isbn">ISBN</label>
+    </div>
+
+    <div class="input-field">
+        <select id="categoriaLiteraria" name="id_categoria_literaria" required disabled>
+            <option value="" selected></option>
+        </select>
+        <label for="categoriaLiteraria">Categoria literária</label>
+    </div>
+
+    <div class="input-field">
+        <input type="text" id="autores" name="autores" required disabled>
+        <label for="autores">Autores</label>
+    </div>
+
+    <div class="input-field">
+        <input type="text" id="palavrasChave" name="palavras_chave" required disabled>
+        <label for="palavrasChave">Palavras-chave</label>
+    </div>
+
+    <div class="input-field focused">
+        <input type="date" id="dataPublicacao" name="data_publicacao" required disabled>
+        <label for="dataPublicacao">Data de publicação</label>
+    </div>
+
+    <div class="input-field">
+        <input type="number" id="edicao" name="edicao" required disabled>
+        <label for="edicao">Edição</label>
+    </div>
+
+    <div class="input-field">
+        <input type="text" id="editora" name="editora" required disabled>
+        <label for="editora">Editora</label>
+    </div>
+
+    <div class="input-field">
+        <input type="number" id="paginas" name="paginas" required disabled>
+        <label for="paginas">Páginas</label>
+    </div>
+
+</form>
+
+<div class="botoesEdicao"></div>
 
 <script type="module" src="./visualizar_obra.js"></script>

@@ -1,20 +1,59 @@
 <meta charset="UTF-8">
-<!-- <link rel="stylesheet" href="../../../public/css/style.css"> -->
+<link rel="stylesheet" href="../../../public/css/style.css">
 <h1>Criar Obra</h1>
 
 <form class="form">
 
+    <!-- Atributos: titulo, isbn, id_categoria_literaria, autores, palavras_chave, data_publicacao, edicao, editora, paginas -->
+
     <div class="input-field">
-        <input type="text" id="nome" name="nome" required>
-        <label for="nome">Nome da Obra</label>
+        <input type="text" id="nome" name="titulo" required>
+        <label for="nome">Título da obra*</label>
     </div>
 
     <div class="input-field">
-        <textarea name="descricao" rows="5" required></textarea>
-        <label for="descricao">Descrição</label>
+        <input type="text" id="isbn" name="isbn" required>
+        <label for="isbn">ISBN</label>
     </div>
 
-    <input type="submit" value="Cadastrar">
+    <div class="input-field">
+        <select id="categoriaLiteraria" name="id_categoria_literaria" required>
+            <option value="" selected></option>
+        </select>
+        <label for="categoriaLiteraria">Categoria literária</label>
+    </div>
+
+    <div class="input-field">
+        <input type="text" id="autores" name="autores" required>
+        <label for="autores">Autores</label>
+    </div>
+
+    <div class="input-field">
+        <input type="text" id="palavrasChave" name="palavras_chave" required>
+        <label for="palavrasChave">Palavras-chave</label>
+    </div>
+
+    <div class="input-field focused">
+        <input type="date" id="dataPublicacao" name="data_publicacao" required>
+        <label for="dataPublicacao">Data de publicação</label>
+    </div>
+
+    <div class="input-field">
+        <input type="number" id="edicao" name="edicao" required>
+        <label for="edicao">Edição</label>
+    </div>
+
+    <div class="input-field">
+        <input type="text" id="editora" name="editora" required>
+        <label for="editora">Editora</label>
+    </div>
+
+    <div class="input-field">
+        <input type="number" id="paginas" name="paginas" required>
+        <label for="paginas">Páginas</label>
+    </div>
+
+    <button class="btn btn-primary" type="button" id="criarObra">Registrar</button>
 
 </form>
 

@@ -21,7 +21,7 @@ class LeitorController {
         
     }
 
-    public function listarLeitores() {
+    public function getLeitores() {
         $leitor = new Leitor();
         $leitores = $leitor::getAll();
         if ($leitores) {

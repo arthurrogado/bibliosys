@@ -1,0 +1,45 @@
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+
+<body>
+    <h1>Criar empréstimo</h1>
+
+    <form class="form">
+        <!--     // $data_emprestimo, $data_prevista_devolucao, $id_leitor, $id_obra, $id_funcionario_responsavel -->
+        <div class="input-field focused">
+            <input type="date" name="data_emprestimo" id="data_emprestimo" required>
+            <label for="data_emprestimo">Data do empréstimo*</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="date" name="data_prevista_devolucao" id="data_prevista_devolucao" required>
+            <label for="data_prevista_devolucao">Data prevista para devolução*</label>
+        </div>
+
+        <div class="input-field focused">
+            <select name="id_leitor" id="id_leitor" required>
+                <option value="">~ Selecione um leitor</option>
+            </select>
+            <label for="id_leitor">Leitor*</label>
+        </div>
+
+        <div class="input-field focused">
+            <select name="id_obra" id="id_obra" required>
+                <option value="">~ Selecione uma obra</option>
+            </select>
+            <label for="id_obra">Obra*</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="id_funcionario_responsavel" required>
+            <label>Funcionário responsável</label>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="criarEmprestimo">Registrar Emrpéstimo</button>
+    </form>
+
+</body>
+
+<script type="module" src="./criar_emprestimo.js"></script>

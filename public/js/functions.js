@@ -60,8 +60,6 @@ function navigateTo(route, params = null) {
             pageToLoad = origin + pathname + '/App/View/' + route + "/" + route + '.html' + params // route + route because of the folder structure
 
             let contentIframe = document.querySelector('#contentData') // iframe
-            console.log('=-=-=- contentIframe =-=-=-')
-            console.log(contentIframe)
             contentIframe.src = pageToLoad  
             updateRoute(route, params)
         }

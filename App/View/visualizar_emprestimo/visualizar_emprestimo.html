@@ -1,0 +1,47 @@
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../public/css/style.css">
+</head>
+
+<body>
+    
+    <h1>Visualizar Empréstimo</h1>
+
+    <form class="form">
+        <!--     // $data_emprestimo, $data_prevista_devolucao, $id_leitor, $id_obra, $id_funcionario_responsavel -->
+        <div class="input-field focused">
+            <input type="date" name="data_emprestimo" id="data_emprestimo" required disabled>
+            <label for="data_emprestimo">Data do empréstimo*</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="date" name="data_prevista_devolucao" id="data_prevista_devolucao" required disabled>
+            <label for="data_prevista_devolucao">Data prevista para devolução*</label>
+        </div>
+
+        <div class="input-field focused">
+            <select name="id_leitor" id="id_leitor" required disabled>
+                <option value="">~ Selecione um leitor</option>
+            </select>
+            <label for="id_leitor">Leitor*</label>
+        </div>
+
+        <div class="input-field focused">
+            <select name="id_obra" id="id_obra" required disabled>
+                <option value="">~ Selecione uma obra</option>
+            </select>
+            <label for="id_obra">Obra*</label>
+        </div>
+
+        <div class="input-field focused">
+            <input type="text" name="id_funcionario_responsavel" required disabled>
+            <label>Funcionário responsável</label>
+        </div>
+
+    </form>
+
+    <div class="botoesEdicao"></div>
+
+</body>
+
+<script type="module" src="./visualizar_emprestimo.js"></script>

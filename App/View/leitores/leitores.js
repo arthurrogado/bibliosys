@@ -10,7 +10,7 @@ function navigateToLeitor(item) {
 }
 
 // LISTAR LEITORES
-httpClient.makeRequest({action: 'listarLeitores'})
+httpClient.makeRequest({action: 'getLeitores'})
 .then(response => {
     if(response.ok) {
         let leitores = response.leitores

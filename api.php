@@ -17,6 +17,7 @@ try {
     require_once './App/Controller/CategoriaLeitorController.php';
     require_once './App/Controller/CategoriaLiterariaController.php';
     require_once './App/Controller/ObraController.php';
+    require_once './App/Controller/EmprestimoController.php';
 } catch (\Throwable $th) {
     echo json_encode( array('error' => $th->getMessage()) );
 }
@@ -44,9 +45,9 @@ if(isset($_POST['data'])) {
 
             // LEITORES
                 
-            case 'listarLeitores':
+            case 'getLeitores':
                 $leitorController = new LeitorController();
-                $leitorController->listarLeitores();
+                $leitorController->getLeitores();
                 break;
 
             case 'cadastrarLeitor':
@@ -181,6 +182,29 @@ if(isset($_POST['data'])) {
             case 'deleteObra':
                 $obraController = new ObraController();
                 $obraController->deleteObra($data->id);
+                break;
+
+            // EMPRESTIMOS
+
+            case 'getEmprestimos':
+                $emprestimoController = new EmprestimoController();
+                $emprestimoController->getEmprestimos();
+                break;
+
+            case 'getEmprestimo':
+                $emprestimoController = new EmprestimoController();
+                $emprestimoController->getEmprestimo($data->id);
+                break;
+
+            case 'createEmprestimo':
+                // $data_emprestimo, $data_prevista_devolucao, $id_leitor, $id_obra, $id_funcionario_responsavel
+                $emprestimoController = new EmprestimoController();
+                $emprestimoController->createEmprestimo($data->data_emprestimo, $data->data_prevista_devolucao, $data->id_leitor, $data->id_obra, $data->id_funcionario_responsavel);
+                break;
+
+            case 'updateEmprestimo':
+                $emprestimoController = new EmprestimoController();
+                $emprestimoController->updateEmprestimo($data->id, $data->data_emprestimo, $data->data_prevista_devolucao, $data->id_leitor, $data->id_obra, $data->id_funcionario_responsavel);
                 break;
 
 

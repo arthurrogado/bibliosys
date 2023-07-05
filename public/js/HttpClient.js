@@ -274,7 +274,7 @@ class HttpClient {
         document.querySelectorAll('.input-field label')
         .forEach(label => {
             if(label.innerHTML.includes('*')) {
-                let ehVazio = label.parentElement.querySelector('input').value == ''
+                let ehVazio = label.parentElement.querySelector('input')?.value == ''
                 if(ehVazio) {
                     label.parentNode.classList.add('error')
                     result = false
@@ -288,6 +288,19 @@ class HttpClient {
     focusAllInputFields() {
         document.querySelectorAll('.input-field').forEach(inputField => {
             inputField.classList.add('focused')
+        })
+    }
+
+    fillSelect(id_select, data, whatToShow = ['id', 'name']) {
+        let select = document.getElementById(id_select)
+        data.forEach(item => {
+            let option = document.createElement('option')
+            option.value = item.id
+            whatToShow.forEach(what => {
+                option.innerHTML += item[what] + ' - '
+            })
+            option.innerHTML = option.innerHTML.slice(0, -3) // remove the last ' - '
+            select.appendChild(option)
         })
     }
 
